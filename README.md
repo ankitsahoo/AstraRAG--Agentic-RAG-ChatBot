@@ -32,41 +32,100 @@
 - The LLM generates a grounded response, which flows back to the frontend via FastAPI.
 - The app is containerized with Docker and deployed on AWS EC2 for production access.
 
-# ⚙️ Workflow Overview
+Here’s the query-response workflow:
 
-[User] 
-   ↓
-[Streamlit UI] — (User enters query)
-   ↓
-[FastAPI Backend] — (Receives request & orchestrates workflow)
-   ↓
-[CrewAI Agent] — (Reasoning + Multi-step task execution)
-   ↓
-[RAG Tool] — (LlamaIndex + ChromaDB)
-   ↓
-→ Retrieves relevant documents from Vector Store
-   ↓
-[Groq LLM API (Llama 3.3 70B)] — (Generates grounded, context-aware answer)
-   ↓
-← Sends response back to RAG Module
-   ↓
-← Response refined and returned to CrewAI Agent
-   ↓
-← CrewAI Agent sends structured output to FastAPI
-   ↓
-← FastAPI returns final JSON response to Streamlit
-   ↓
-← Streamlit displays answer to User
+| Step | Component                                | Action                                                                                     |
+| ---- | ---------------------------------------- | ------------------------------------------------------------------------------------------ |
+| 1    | 🧑 User                                   | Enters query →                                                                              |
+| 2    | 🌐 Streamlit UI                           | Sends request to backend →                                                                  |
+| 3    | ⚡ FastAPI Backend                         | Orchestrates workflow and forwards to CrewAI →                                              |
+| 4    | 🧠 CrewAI Agent                           | Performs reasoning and multi-step task execution →                                         |
+| 5    | 📚 RAG Tool (LlamaIndex + 🗄️ ChromaDB)  | Retrieves relevant documents from vector store →                                           |
+| 6    | 🤖 Groq LLM API (Llama 3.3 70B)          | Generates grounded, context-aware answer →                                                 |
+| 7    | 🔄 Response Flow                          | Answer returned: RAG Tool → CrewAI → FastAPI → Streamlit →                                  |
+| 8    | 🌐 Streamlit UI                           | Displays the final answer to the user                                                      |
+                                                   |
+
+# ⚙️AstraRAG Complete Workflow Overview
+
++----------------+
+|    🧑 User     |
+| (enters query) |
++----------------+
+        |
+        v
++----------------+
+| 🌐 Streamlit UI |
+| (sends request) |
++----------------+
+        |
+        v
++----------------+
+| ⚡ FastAPI      |
+| Backend        |
+| (orchestrates  |
+| workflow)      |
++----------------+
+        |
+        v
++----------------+
+| 🧠 CrewAI Agent |
+| (multi-step    |
+| reasoning)     |
++----------------+
+        |
+        v
++------------------------------+
+| 📚 RAG Tool                   |
+| (LlamaIndex + 🗄️ ChromaDB)   |
+| Retrieves relevant documents |
++------------------------------+
+        |
+        v
++------------------------------+
+| 🤖 Groq LLM API               |
+| (Llama 3.3 70B)              |
+| Generates context-aware      |
+| answers                      |
++------------------------------+
+        ^
+        |
+        v
+Response flows back through:
+🧠 CrewAI Agent → ⚡ FastAPI → 🌐 Streamlit UI
+        |
+        v
++----------------+
+| 🌐 Streamlit UI |
+| Displays answer |
++----------------+
+
+
 
 # 🧱 Deployment Flow
 
-[App Components: Streamlit + FastAPI + CrewAI + LlamaIndex + ChromaDB]
-   ↓
-[Docker Container] — (Containerized environment)
-   ↓
-[AWS EC2 Instance] — (Production deployment)
-   ↓
-[Public Access] — (Users interact with deployed chatbot)
+         +---------------------------------------------------------+
+         | 🖥️ App Components: 🌐 Streamlit + ⚡ FastAPI + 🧠 CrewAI  |
+         |             + 📚 LlamaIndex + 🗄️ ChromaDB               |
+         +---------------------------------------------------------+
+                              │
+                              ▼
+         +-------------------------------+
+         | 🐳 Docker Container           |
+         | (Containerized environment)  |
+         +-------------------------------+
+                              │
+                              ▼
+         +-------------------------------+
+         | ☁️ AWS EC2 Instance           |
+         | (Production deployment)      |
+         +-------------------------------+
+                              │
+                              ▼
+         +-------------------------------+
+         | 🌐 Public Access               |
+         | (Users interact with chatbot) |
+         +-------------------------------+
 
 
 ##### Some Screenshot related to Agentic RAG how it is retriving the answers to the Users query #######
@@ -93,7 +152,7 @@
 
 **Build the Docker Image of the AstraRAG**
 
-### 🐳 Docker Image Details
+# 🐳 Docker Image Details
 
 | **Repository**     | **Tag**  | **Image ID**   | **Created**       | **Size**  |
 |--------------------|----------|----------------|-------------------|-----------|
@@ -101,7 +160,7 @@
 
 ![alt text](<Screenshot (37).png>)
 
-###### ⚙️ Deployed the application to AWS EC2
+# ⚙️ Deployed the application to AWS EC2
 
 ![alt text](<Screenshot (38).png>)
 
