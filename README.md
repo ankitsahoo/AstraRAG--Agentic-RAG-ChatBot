@@ -48,58 +48,23 @@ Here’s the query-response workflow:
 
 # ⚙️AstraRAG Complete Workflow Overview
 
-+----------------+
-|    🧑 User     |
-| (enters query) |
-+----------------+
-        |
-        v
-+----------------+
-| 🌐 Streamlit UI |
-| (sends request) |
-+----------------+
-        |
-        v
-+----------------+
-| ⚡ FastAPI      |
-| Backend        |
-| (orchestrates  |
-| workflow)      |
-+----------------+
-        |
-        v
-+----------------+
-| 🧠 CrewAI Agent |
-| (multi-step    |
-| reasoning)     |
-+----------------+
-        |
-        v
-+------------------------------+
-| 📚 RAG Tool                   |
-| (LlamaIndex + 🗄️ ChromaDB)   |
-| Retrieves relevant documents |
-+------------------------------+
-        |
-        v
-+------------------------------+
-| 🤖 Groq LLM API               |
-| (Llama 3.3 70B)              |
-| Generates context-aware      |
-| answers                      |
-+------------------------------+
-        ^
-        |
-        v
-Response flows back through:
-🧠 CrewAI Agent → ⚡ FastAPI → 🌐 Streamlit UI
-        |
-        v
-+----------------+
-| 🌐 Streamlit UI |
-| Displays answer |
-+----------------+
+### Query & Response Workflow
 
+🧑 **User**  
+&nbsp;&nbsp;↓  
+🌐 **Streamlit UI** – Sends request to backend  
+&nbsp;&nbsp;↓  
+⚡ **FastAPI Backend** – Orchestrates workflow and forwards to CrewAI  
+&nbsp;&nbsp;↓  
+🧠 **CrewAI Agent** – Performs multi-step reasoning  
+&nbsp;&nbsp;↓  
+📚 **RAG Tool (LlamaIndex + 🗄️ ChromaDB)** – Retrieves relevant documents  
+&nbsp;&nbsp;↓  
+🤖 **Groq LLM API (Llama 3.3 70B)** – Generates context-aware answer  
+&nbsp;&nbsp;↑  
+🔄 **Response Flow** – Answer returned: RAG → CrewAI → FastAPI → Streamlit UI  
+&nbsp;&nbsp;↓  
+🌐 **Streamlit UI** – Displays final answer
 
 # 🧱 Deployment Flow
 
