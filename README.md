@@ -23,7 +23,7 @@
 - **Docker**- To containrize the application
 - **AWS EC2**- For Deployment
 
-# flowchart
+# Flowchart
 
 - 🧑User interacts with 🌐Streamlit UI and submits a query.
 - ⚡FastAPI receives it and forwards the task to a 🧠CrewAI Agent.
@@ -92,7 +92,7 @@ Here’s the query-response workflow:
          +-------------------------------+
 
 
-##### Some Screenshot related to Agentic RAG how it is retriving the answers to the Users query #######
+# Some Screenshot related to Agentic RAG how it is retriving the answers to the Users query
 
 **VectorDB creation**
 ![alt text](<Screenshot (29).png>)
