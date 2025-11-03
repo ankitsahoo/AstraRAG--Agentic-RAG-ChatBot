@@ -101,4 +101,8 @@
 
 ![alt text](<Screenshot (37).png>)
 
+###### ⚙️ Deployed the application to AWS EC2
+
+![alt text](<Screenshot (38).png>)
+
 
